@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+    simple-web-service:
+      image: devopsdockeruh/simple-web-service
+      build: .
+      ports:
+        - "8000:8080"
+      environment:
+        - GIN_MODE=release
+      volumes:
+        - ./text.log:/usr/src/app/text.log
+      command: server
+      container_name: simple-web-service-compose
