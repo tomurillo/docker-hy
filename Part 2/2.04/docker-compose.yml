@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+    backend:
+      image: example-backend
+      ports:
+        - "8080:8080"
+      environment:
+        - REDIS_HOST=example-redis
+      container_name: example-backend-redis
+    frontend:
+      image: example-frontend
+      ports:
+        - "5000:5000"
+      container_name: example-frontend-redis
+    redis:
+      image: redis
+      container_name: example-redis
