@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+    db:
+      image: postgres:13.2-alpine
+      restart: unless-stopped
+      environment:
+        - POSTGRES_PASSWORD=example
+        - POSTGRES_USER=dbuser
+        - POSTGRES_DB=testdb
+      container_name: db-redmine
+    backend:
+      image: example-backend
+      ports:
+        - "8080:8080"
+      environment:
+        - REDIS_HOST=example-redis
+        - POSTGRES_HOST=db-redmine
+        - POSTGRES_USER=dbuser
+        - POSTGRES_PASSWORD=example
+        - POSTGRES_DATABASE=testdb
+      container_name: example-backend-postgres
+      depends_on:
+        - db
+    frontend:
+      image: example-frontend
+      ports:
+        - "5000:5000"
+      container_name: example-frontend-postgres
+    redis:
+      image: redis
+      container_name: example-redis
+
