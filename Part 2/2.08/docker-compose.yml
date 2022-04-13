@@ -22,8 +22,6 @@ services:
       container_name: ex-2.8-db
     backend:
       image: example-backend
-      ports:
-        - "8080:8080"
       environment:
         - REDIS_HOST=ex-2.8-redis
         - POSTGRES_HOST=ex-2.8-db
@@ -36,8 +34,6 @@ services:
         - redis
     frontend:
       image: example-frontend
-      ports:
-        - "5000:5000"
       container_name: ex-2.8-frontend
     redis:
       image: redis
