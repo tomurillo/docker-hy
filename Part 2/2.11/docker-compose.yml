@@ -1,0 +1,21 @@
+# Docker-compose for local development of the Buddy API
+# `docker-compose up` must be preceded by the following command:
+# `git clone https://github.com/tomurillo/Buddy-Recommender-API.git`
+# in order to copy codebase locally for development.
+# The codebase will be copied to ./Buddy-Recommender-API/src/
+
+version: '3.8'
+
+services:
+  buddy-api-dev-env:
+    image: tomurillo/buddy-api  # Pull from Docker Hub the image built in exercise 1.15
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production  # Choose an environment; n.b. development env must be preceded by DB migrations
+    volumes:
+      - ./Buddy-Recommender-API/src/:/app/  # To modify container code locally
+      - buddy_db:/app/buddy_recommender/main/storage  # Keep DB in named volume to prevent errors
+    container_name: buddy-api-dev-env
+volumes:
+  buddy_db:
