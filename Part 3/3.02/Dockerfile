@@ -1,6 +1,3 @@
-# Run using:
-# docker run -v /var/run/docker.sock:/var/run/docker.sock
-
 FROM ubuntu:18.04
 
 WORKDIR /usr/src/app
