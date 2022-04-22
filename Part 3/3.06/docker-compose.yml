@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+    proxy:
+      image: nginx:1.19-alpine
+      restart: unless-stopped
+      volumes:
+        - ./nginx.conf:/etc/nginx/nginx.conf
+      ports:
+        - "80:80"
+      container_name: ex-3.06-nginx-proxy
+      depends_on:
+        - frontend
+        - backend
+    db:
+      image: postgres:13.2-alpine
+      restart: unless-stopped
+      environment:
+        - POSTGRES_PASSWORD=example
+        - POSTGRES_USER=dbuser
+        - POSTGRES_DB=testdb
+      volumes:
+        - ./database:/var/lib/postgresql/data
+      container_name: ex-3.06-db
+    backend:
+      build: example-backend
+      environment:
+        - REDIS_HOST=ex-3.06-redis
+        - POSTGRES_HOST=ex-3.06-db
+        - POSTGRES_USER=dbuser
+        - POSTGRES_PASSWORD=example
+        - POSTGRES_DATABASE=testdb
+      container_name: ex-3.06-backend
+      depends_on:
+        - db
+        - redis
+    frontend:
+      build: example-frontend
+      container_name: ex-3.06-frontend
+    redis:
+      image: redis
+      command: --save 60 1 --loglevel warning
+      volumes:
+        - ./data:/data
+      container_name: ex-3.06-redis
