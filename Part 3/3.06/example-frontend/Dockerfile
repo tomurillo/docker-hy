@@ -18,11 +18,7 @@ FROM node:16-alpine
 
 WORKDIR /usr/src/app
 
-# Copy project files
-COPY public /usr/src/app/public
-COPY src /usr/src/app/src
-
-# Copy built node files
+# Copy built project files
 COPY --from=build-stage /usr/src/app/build ./build
 COPY --from=build-stage /usr/src/app/node_modules ./node_modules
 
