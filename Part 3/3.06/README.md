@@ -22,7 +22,7 @@ Images created in Part 3 of the course:
 Images created in Part 3 of the course:
 
 ```bash
-(base) tomas@tomas-ubuntu:~$ docker image ls | grep frontend
+(base) tomas@tomas-ubuntu:~$ docker image ls | grep backend
 306_backend  latest   0a93c7ca0cca   About an hour ago   18.5MB
 305_backend  latest   3ac77a015ab7   24 hours ago        447MB
 304_backend  latest   466d69cc69a2   27 hours ago        256MB
